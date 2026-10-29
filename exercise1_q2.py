@@ -1,20 +1,18 @@
 import math
 
-
-def sender_str(m: str, poly: str) -> int:
-
-    digits_to_add = (math.ceil(math.log2(int(poly, 2))))
-    message_p = int(m, 2) << digits_to_add
-    remainder = modulo_two_division_str(f"{message_p:b}", poly)
-    message_bin = int(m, 2)
+def sender(m: int, poly: int) -> int:
+    digits_to_add = (math.ceil(math.log2(poly)))
+    message_p = m << digits_to_add
+    remainder = modulo_two_division(message_p, poly)
+    message_bin = m
     return (message_bin << digits_to_add) + remainder
 
-def receiver_str(m: str, poly: str) :
-    remainder = modulo_two_division_str(m, poly)
-    poly_bin = int(poly, 2)
-    digits_to_remove = (math.ceil(math.log2(int(poly_bin))))
-    original = int(m, 2) >> digits_to_remove
-    return  f"{original:b}", remainder == 0
+
+def receiver(m: int, poly: int) :
+    remainder = modulo_two_division(m, poly)
+    digits_to_remove = (math.ceil(math.log2(poly)))
+    original = m >> digits_to_remove
+    return  original, remainder == 0
 
 
 def modulo_two_division_str(a: str, b: str) -> int:
@@ -32,6 +30,13 @@ def modulo_two_division(a: int, b: int) -> int:
 
     return remaining
 
+
+def sender_str(m: str, poly: str) -> int:
+    return sender(int(m, 2), int(poly, 2))
+
+def receiver_str(m: str, poly: str) :
+    original, remainder = receiver(int(m, 2), int(poly,2))
+    return  f"{original:b}", remainder
 
 message = input("Enter a message: ")
 polynomial = input("Enter a polynomial: ")
