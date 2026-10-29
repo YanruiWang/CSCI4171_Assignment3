@@ -11,17 +11,17 @@ def sender(message: str, polynomial: str):
     return message_zero
 
 def modulo_two_division(a: str, b: str) -> int:
-    bits_a = []
-    for bit in a:
-        bits_a.append(int(bit))
-    bits_b = []
-    for bit in b:
-        bits_b.append(int(bit))
 
-    print(bits_a)
-    print(bits_b)
-    return 0
+    length_b = math.ceil(math.log2(int(b,2)))
+    remaining = int(a, 2)
+    b_binary = int(b, 2)
+    while remaining >= b_binary:
+        digits = math.ceil(math.log2(remaining))
+        remaining = remaining ^ (b_binary << (digits - length_b))
+
+    return remaining
 
 
 div = sender("1000", "111010")
-od = modulo_two_division(f"{div:b}", "111010")
+od = modulo_two_division("110100111101", "1011")
+print(od)
