@@ -38,16 +38,22 @@ def receiver_str(m: str, poly: str) :
     original, remainder = receiver(int(m, 2), int(poly,2))
     return  f"{original:b}", remainder
 
-message = input("Enter a message: ")
-polynomial = input("Enter a polynomial: ")
+def main():
+    message = input("Enter a message: ")
+    polynomial = input("Enter a polynomial: ")
 
-message_transmitted = f"{sender_str(message, polynomial):b}"
-print(f"Message transmitted: {message_transmitted}")
-message_received, valid = receiver_str(message_transmitted, polynomial)
-if valid:
-    print(f"Message received: {message_received}, without error")
-else:
-    print(f"Message received: {message_received}, with error")
+    message_transmitted = f"{sender_str(message, polynomial):b}"
+    print(f"Message transmitted: {message_transmitted}")
+    message_received, valid = receiver_str(message_transmitted, polynomial)
+    if valid:
+        print(f"Message received: {message_received}, without error")
+    else:
+        print(f"Message received: {message_received}, with error")
+
+
+if __name__ == "__main__":
+    main()
+
 
 
 
